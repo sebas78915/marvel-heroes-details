@@ -1,3 +1,4 @@
+import { CircularProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import API from '../../api-client/API';
 
@@ -17,7 +18,7 @@ const CharacterDetailsContainer = ({ match }) => {
   }, [id])
 
   if (!character) {
-    return <div>Loading..</div>
+    return <CircularProgress color="secondary" />
   }
 
   return (

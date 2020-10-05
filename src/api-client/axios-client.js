@@ -6,7 +6,7 @@ const apiKey = 'ebf2c8960ffd4493d717c434dd0e0217';
 export async function AxiosHTTP(url, method, data=null) {
 
     return await Axios({
-        url: `${rootServer}/${url}?apikey=${apiKey}`,
+        url: `${rootServer}/${url}apikey=${apiKey}`,
         method,
         data: data
     })
