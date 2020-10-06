@@ -1,9 +1,10 @@
 import React from 'react';
 import Routes from './routes';
 import './App.css'
-import { Typography } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Background from './img/background-comics.jpg'
+import Header from './header';
 
 
 function App() {
@@ -12,14 +13,20 @@ function App() {
     root: {
       backgroundColor: theme.palette.background.paper,
     },
+    background: {
+      backgroundImage: Background
+    }
   }));
   
   const classes = useStyles();
 
   return (
-    <div className="App">
-      <Typography className={classes.root} variant="h2" gutterBottom>Marvel Universe</Typography>
-      <Routes />
+    <div className="App"> 
+      {/* <header className="banner-marvel"></header> */}
+      <Header />
+      <div className="background-comics">
+        <Routes />
+      </div>
     </div>
   );
 

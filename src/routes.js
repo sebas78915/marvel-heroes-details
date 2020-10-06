@@ -8,9 +8,8 @@ class Routes extends Component {
 
   render() {
     return(
-      <div>
+      <>
         <Router >
-        <div>
           <Switch>
             <Route exact path='/' component={HomeContainer} />
             <Route path='/pages' component={CharactersList} />
@@ -18,9 +17,8 @@ class Routes extends Component {
             {/* <Route path="/listitem/:id" component={RenderListItem} /> */}
 
           </Switch>
-        </div>
         </Router>
-      </div>
+      </>
     )}
 }
 

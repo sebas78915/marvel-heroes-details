@@ -1,6 +1,13 @@
-header {
-  position: flex;
-  width: 100%;
-  height: 80px;
-  background: #ddd8d8;
+.background-comics {
+  background-image: url('./img/background-comics.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.banner-marvel {
+  background-image: url('./img/marvel-banner.jpg');
+  height: 208px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
 }

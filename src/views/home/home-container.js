@@ -8,8 +8,7 @@ const HomeContainer = (props) => {
 
   const [characters, setCharacters] = useState([]);
   const [pagination, setPagination] = useState(0);
-  const [page, setPage] = React.useState(() => {
-    console.log(parsed)
+  const [page, setPage] = useState(() => {
     return parseInt(parsed.page || 1);
   });
 
@@ -28,7 +27,7 @@ const HomeContainer = (props) => {
     setPage(value);
     props.history.push({
       pathname: '/',
-      search: `?page=${page + 1}`
+      search: value ? `?page=${value}` : '?page=1'
     });
   };
 
