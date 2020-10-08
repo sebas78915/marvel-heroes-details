@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -7,6 +7,8 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import { SideMenu } from './side-menu';
+import { Drawer } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,8 +65,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header() {
+export default function Header(props) {
   const classes = useStyles();
+
+  const [menuIsOpen, setIsOpen] = useState(false);
+
+  const toggleDrawer = open => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setIsOpen(open);
+  };
 
   return (
     <div className={classes.root}>
@@ -75,9 +87,13 @@ export default function Header() {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
+            onClick={toggleDrawer(true)}
           >
             <MenuIcon />
           </IconButton>
+          <Drawer open={menuIsOpen} onClose={toggleDrawer(false)}>
+            <SideMenu {...props} toggleDrawer={toggleDrawer}/>
+          </Drawer>
           <Typography className={classes.title} variant="h6" noWrap>
             Marvel Universe
           </Typography>

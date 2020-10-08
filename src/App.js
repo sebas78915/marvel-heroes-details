@@ -4,12 +4,12 @@ import './App.css'
 import Header from './header';
 
 
-function App() {
+function App(props) {
 
   return (
     <div className="App"> 
       {/* <header className="banner-marvel"></header> */}
-      <Header />
+      <Header {...props} />
       <div className="background-comics">
         <Routes />
       </div>

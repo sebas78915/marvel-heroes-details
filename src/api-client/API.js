@@ -2,13 +2,13 @@ import { AxiosHTTP } from './axios-client';
 
 const API = {
   characters: {
-    async getCharacters(params = {}) {
+    async getCharacters(category, params = {}) {
       const paramsValues = Object.keys(params);
       let severalParams = ''
       let urlTemp = '';
 
       if (!Object.keys(params).length) {
-        return await AxiosHTTP('v1/public/characters?', 'GET');
+        return await AxiosHTTP(`v1/public/${category}?`, 'GET');
       }
       // eslint-disable-next-line array-callback-return
       paramsValues.map((param, index) => {
@@ -16,10 +16,10 @@ const API = {
         severalParams = urlTemp.concat(temp2)
         urlTemp = temp2;
       })
-      return await AxiosHTTP(`v1/public/characters?${severalParams}`, 'GET')
+      return await AxiosHTTP(`v1/public/${category}?${severalParams}`, 'GET')
     },
-    async getCharactersById(id) {
-      return await AxiosHTTP(`v1/public/characters/${id}?`, 'GET');
+    async getCharactersById(category, id) {
+      return await AxiosHTTP(`v1/public/${category}/${id}?`, 'GET');
     }
   }
 }

@@ -6,16 +6,17 @@ const CharacterDetailsContainer = ({ match }) => {
 
   const { id } = match.params
   const [character, setCharacter] = useState('');
+  const category = localStorage.getItem('category')
 
   useEffect(() => {
     const getCharacterById = async () => {
-      let getCharacter = await API.characters.getCharactersById(id);
+      let getCharacter = await API.characters.getCharactersById(category, id);
       if (getCharacter.ok) {
         setCharacter(getCharacter.data.data.results[0]);
       }
     }
     getCharacterById();
-  }, [id])
+  }, [id, category])
 
   if (!character) {
     return <CircularProgress color="secondary" />
@@ -23,7 +24,7 @@ const CharacterDetailsContainer = ({ match }) => {
 
   return (
     <div>
-      <h3>{character.name}</h3>
+      <h3>{category === 'characters' ? character.name : character.title}</h3>
     </div>
   );
 }

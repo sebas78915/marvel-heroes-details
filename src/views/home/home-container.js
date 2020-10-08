@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import API from '../../api-client/API';
 import CharactersList from './characters-list';
+import queryString from 'query-string'
 
 const HomeContainer = (props) => {
-  const queryString = require('query-string');
   const parsed = queryString.parse(props.location.search);
 
   const [characters, setCharacters] = useState([]);
@@ -14,7 +14,8 @@ const HomeContainer = (props) => {
 
   useEffect(() => {
     const getCharacters = async () => {
-      let getCharacter = await API.characters.getCharacters({offset: page * 20 - 20});
+      const category = localStorage.getItem('category');
+      let getCharacter = await API.characters.getCharacters(category, {offset: page * 20 - 20});
       if (getCharacter.ok) {
         calculatePagination(getCharacter.data.data.total);
         setCharacters(getCharacter.data.data.results);
@@ -24,9 +25,10 @@ const HomeContainer = (props) => {
   }, [page])
 
   const handleChange = (event, value) => {
+    const category = localStorage.getItem('category');
     setPage(value);
     props.history.push({
-      pathname: '/',
+      pathname: `/${category}`,
       search: value ? `?page=${value}` : '?page=1'
     });
   };

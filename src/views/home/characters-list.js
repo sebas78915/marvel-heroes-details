@@ -40,7 +40,11 @@ const CharactersList= (props) => {
 
   return (
     <>
-      <Slide timeout={800} direction="right" in mountOnEnter unmountOnExit><div className={classes.title}><h1>CHARACTERS</h1></div></Slide>
+      <Slide timeout={800} direction="right" in mountOnEnter unmountOnExit>
+        <div className={classes.title}>
+          <h1>{localStorage.getItem('category').toUpperCase()}</h1>
+        </div>
+      </Slide>
       <div className={classes.display}>
         {characters.map(character => <Character key={character.id} character={character} />)}
         {characters.map((character, index) => <Character shadow key={character.id} character={character} index={index} />)}
