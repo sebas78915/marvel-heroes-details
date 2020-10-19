@@ -97,7 +97,7 @@ export default function Header(props) {
           <Typography className={classes.title} variant="h6" noWrap>
             Marvel Universe
           </Typography>
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -109,9 +109,10 @@ export default function Header(props) {
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
-          </div>
+          </div> */}
         </Toolbar>
       </AppBar>
+      <Toolbar id="back-to-top-anchor" />
     </div>
   );
 }

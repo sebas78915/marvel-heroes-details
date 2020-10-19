@@ -1,12 +1,14 @@
 import { Pagination } from '@material-ui/lab';
 import React from 'react';
 import Character from './character'
-import { CircularProgress, makeStyles, Slide } from '@material-ui/core';
+import { Fab, makeStyles, Slide, useScrollTrigger, Zoom } from '@material-ui/core';
 import Theme from '../../utils/theme';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import Loader from '../../utils/loader';
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    position: "absolute",
+    position: "fixed",
     backgroundColor: 'red',
     color: 'white',
     width: 'fit-content',
@@ -20,14 +22,46 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    padding: theme.spacing(4)
+    padding: theme.spacing(4),
   },
   pagination: {
     display: 'flex',
     justifyContent: 'center',
     paddingBottom: theme.spacing(5),
+  },
+  goToTop: {
+    position: 'fixed',
+    bottom: theme.spacing(4),
+    right: theme.spacing(4),
   }
 }));
+
+function ScrollTop(props) {
+  const { children, window } = props;
+  const classes = useStyles();
+
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  return (
+    <Zoom in={trigger}>
+      <div onClick={handleClick} role="presentation" className={classes.goToTop}>
+        {children}
+      </div>
+    </Zoom>
+  );
+}
 
 const CharactersList= (props) => {
   const classes = useStyles();
@@ -35,7 +69,7 @@ const CharactersList= (props) => {
   const { characters, pagination, page, handleChange } = props;
 
   if (!characters.length) {
-    return <CircularProgress color="primary" />
+    return <Loader />
   }
 
   return (
@@ -47,8 +81,14 @@ const CharactersList= (props) => {
       </Slide>
       <div className={classes.display}>
         {characters.map(character => <Character key={character.id} character={character} />)}
-        {characters.map((character, index) => <Character shadow key={character.id} character={character} index={index} />)}
       </div>
+      <ScrollTop {...props}>
+        <Theme>
+          <Fab color="secondary" size="medium" aria-label="scroll back to top">
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </Theme>
+      </ScrollTop>
       <Theme>
         <Pagination
           className={classes.pagination}
@@ -57,7 +97,8 @@ const CharactersList= (props) => {
           page={page} 
           onChange={handleChange}
           size="large"
-          boundaryCount={2}></Pagination>
+          boundaryCount={2}>
+        </Pagination>
       </Theme>
     </>
   );

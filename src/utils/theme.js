@@ -4,12 +4,7 @@ import { ThemeProvider } from '@material-ui/styles';
 
 const theme = createMuiTheme({
   // palette: {
-  //   primary: {
-  //     // light: will be calculated from palette.primary.main,
-  //     main: CONSTANTS.BLUE,
-  //     // dark: will be calculated from palette.primary.main,
-  //     contrastText: CONSTANTS.CONTRAST_TEXT,
-  //   },
+  //   primary: red,
   // },
   overrides:{
     MuiPaginationItem:{
@@ -17,11 +12,21 @@ const theme = createMuiTheme({
         backgroundColor: '#fff',
       }
     },
-    // Mui: {
-    //   selected: {
-    //     backgroundColor: ''
-    //   }
-    // }
+    MuiCardMedia: {
+      img: {
+        objectFit: 'fill'
+      }
+    },
+    MuiAppBar: {
+      positionStatic: {
+        position: 'fixed'
+      }
+    },
+    MuiFab: {
+      secondary: {
+        backgroundColor: 'red'
+      }
+    }
   }
 });
 

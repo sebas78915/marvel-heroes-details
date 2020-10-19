@@ -2,6 +2,7 @@ import React from 'react';
 import Routes from './routes';
 import './App.css'
 import Header from './header';
+import Theme from './utils/theme';
 
 
 function App(props) {
@@ -9,7 +10,9 @@ function App(props) {
   return (
     <div className="App"> 
       {/* <header className="banner-marvel"></header> */}
-      <Header {...props} />
+      <Theme>
+        <Header {...props} />
+      </Theme>
       <div className="background-comics">
         <Routes />
       </div>
