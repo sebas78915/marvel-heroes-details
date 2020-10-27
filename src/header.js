@@ -9,6 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { SideMenu } from './side-menu';
 import { Drawer } from '@material-ui/core';
+import LogoutButton from './utils/logout-button';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
+  const { isAuthenticated } = useAuth0()
 
   const [menuIsOpen, setIsOpen] = useState(false);
 
@@ -97,19 +100,8 @@ export default function Header(props) {
           <Typography className={classes.title} variant="h6" noWrap>
             Marvel Universe
           </Typography>
-          {/* <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div> */}
+          {localStorage.getItem('isAuthenticated') &&
+            <LogoutButton />}
         </Toolbar>
       </AppBar>
       <Toolbar id="back-to-top-anchor" />

@@ -2,9 +2,22 @@ import React, { useEffect, useState } from 'react';
 import API from '../../api-client/API';
 import CharactersList from './characters-list';
 import queryString from 'query-string'
-import { TextField } from '@material-ui/core';
+import { makeStyles, TextField, Typography } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  searcherContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  searcher: {
+    margin: '10px 0',
+    width: '800px'
+  }
+}));
 
 const HomeContainer = (props) => {
+  const classes = useStyles();
   const parsed = queryString.parse(props.location.search);
   const category = localStorage.getItem('category');
 
@@ -61,18 +74,29 @@ const HomeContainer = (props) => {
   }
 
   const handleChangeSearch = (e) => {
-    setSearch(e.target.value);
-    getCharactersBySearch(search);
+    const searchParam = e.target.value;
+    setSearch(searchParam);
+    getCharactersBySearch(searchParam);
   }  
   return (
     <div>
-      <TextField id="outlined-basic" label="Outlined" variant="outlined" onChange={handleChangeSearch} />{search}
-      <CharactersList
-        {...props}
-        characters={characters}
-        pagination={pagination}
-        page={page}
-        handleChange={handleChange}  />
+      <div className={classes.searcherContainer}>
+        <TextField className={classes.searcher} id="outlined-basic" label="Search Character" variant="outlined" onChange={handleChangeSearch} />
+      </div>
+      {characters.length ?
+        <CharactersList
+          {...props}
+          characters={characters}
+          pagination={pagination}
+          page={page}
+          handleChange={handleChange}
+        /> :
+        <Typography variant="h5" gutterBottom>
+          There's no characters
+        </Typography>
+        
+      }
+      
     </div>
   );
 }
